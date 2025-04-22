@@ -87,5 +87,32 @@ Bottom line: If you control the agent’s environment, the tools it trusts, and 
 # 
 ![image](https://github.com/user-attachments/assets/0c6613ac-c727-4cac-8875-f7d0bf4414e8)
 
-# 
+## Best practices
 
+When implementing resource support:
+
+1. Use clear, descriptive resource names and URIs
+2. Include helpful descriptions to guide LLM understanding
+3. Set appropriate MIME types when known
+4. Implement resource templates for dynamic content
+5. Use subscriptions for frequently changing resources
+6. Handle errors gracefully with clear error messages
+7. Consider pagination for large resource lists
+8. Cache resource contents when appropriate
+9. Validate URIs before processing
+10. Document your custom URI schemes
+
+## Security considerations
+
+When exposing resources:
+
+- Validate all resource URIs
+- Implement appropriate access controls
+- Sanitize file paths to prevent directory traversal
+- Be cautious with binary data handling
+- Consider rate limiting for resource reads
+- Audit resource access
+- Encrypt sensitive data in transit
+- Validate MIME types
+- Implement timeouts for long-running reads
+- Handle resource cleanup appropriately
