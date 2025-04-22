@@ -78,9 +78,14 @@ Tactic: Once inside one MCP server, scan for linked environments. Reuse tokens. 
 Result? Total pwnage. One breach = many.
 
 Bottom line: If you control the agent’s environment, the tools it trusts, and the prompts it sees, you own the entire AI pipeline.
-
+# 
 ![image](https://github.com/user-attachments/assets/f500caa0-9434-4c34-bd46-40e3061effc4)
 
-
+# 
 ![image](https://github.com/user-attachments/assets/e36d692c-e3b3-4733-b8a4-ed993b69d4e7)
+
+# 
+![image](https://github.com/user-attachments/assets/0c6613ac-c727-4cac-8875-f7d0bf4414e8)
+
+# 
 
