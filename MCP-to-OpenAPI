@@ -1,1 +1,83 @@
 
+# MCP-to-OpenAPI Proxy (mcpo)
+
+mcpo es un proxy que permite exponer servidores MCP (Model Context Protocol)
+como servicios HTTP compatibles con OpenAPI, de forma que puedan ser consumidos
+por Open WebUI como herramientas externas.
+
+## Problema que resuelve
+
+Los servidores MCP estándar (como filesystem, web, git, etc.) funcionan
+principalmente sobre STDIO y no exponen una API HTTP.
+
+Open WebUI requiere herramientas accesibles vía HTTP / OpenAPI.
+mcpo actúa como adaptador entre ambos mundos.
+
+## Rol de mcpo
+
+- Ejecuta uno o más MCP Servers
+- Traduce llamadas MCP → HTTP
+- Genera automáticamente una especificación OpenAPI
+- Expone los tools MCP como endpoints HTTP
+- Permite a Open WebUI invocar MCP Servers sin soporte nativo de STDIO
+
+## Arquitectura lógica
+
+Open WebUI  →  HTTP / OpenAPI  →  mcpo  →  MCP Protocol  →  MCP Server
+
+mcpo es el único componente que entiende ambos protocolos.
+
+## Funcionamiento
+
+1. mcpo inicia un MCP Server (por ejemplo filesystem)
+2. Se comunica con el MCP Server usando el protocolo MCP original
+3. Expone cada tool MCP como un endpoint HTTP
+4. Publica una especificación OpenAPI compatible
+5. Open WebUI consume esos endpoints como herramientas externas
+
+## Ejecución básica
+
+Según el repositorio oficial, mcpo se ejecuta pasando como argumento
+el comando del MCP Server que se desea exponer.
+
+Ejemplo conceptual (documentado):
+
+mcpo -- <comando MCP server>
+
+mcpo se encarga de:
+- Lanzar el proceso MCP
+- Mantener el ciclo de vida
+- Traducir requests y responses
+
+## Integración con Open WebUI
+
+Open WebUI permite registrar mcpo como:
+- Tipo: MCP (Streamable HTTP)
+- URL: endpoint HTTP expuesto por mcpo
+
+Una vez registrado:
+- Las tools MCP aparecen como herramientas disponibles
+- El modelo puede invocarlas durante la conversación
+
+## Casos de uso comunes
+
+- Filesystem MCP Server
+- Web / HTTP MCP Server
+- Git MCP Server
+- Database MCP Servers
+- Cualquier MCP basado en STDIO
+
+## Seguridad y aislamiento
+
+La documentación indica que:
+- El acceso al filesystem depende de los volúmenes montados
+- mcpo no amplía permisos del MCP Server
+- El aislamiento depende del contenedor Docker utilizado
+
+## Repositorio oficial
+
+https://github.com/open-webui/mcpo
+
+## Documentación Open WebUI
+
+https://docs.openwebui.com/features/plugin/tools/openapi-servers/mcp/
